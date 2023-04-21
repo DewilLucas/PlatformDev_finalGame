@@ -5,13 +5,9 @@ using UnityEngine;
 public class JumpCharacterScript : MonoBehaviour
 {
     public float jumpSpeed = 18.0f;
-
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController controller;
     public Animator anim;
-
-
-
     private int _DubbleJump = 0;
     private int _MaxDubbleJump = 2;
     void Start()
@@ -33,15 +29,21 @@ public class JumpCharacterScript : MonoBehaviour
                 _DubbleJump++;
                 if (_DubbleJump <= _MaxDubbleJump)
                 {
+                    if (_DubbleJump == _MaxDubbleJump)
+                    {
+                        anim.SetBool("IsJumping", false);
+                    }
+                    else
+                    {
+                        anim.SetBool("IsJumping", true);
+                    }
                     moveDirection.y = jumpSpeed;
-                    anim.SetBool("IsJumping", true);
                 }
                 else
                 {
                     _DubbleJump = 3;
                 }
         }
-        
         Debug.Log(_DubbleJump);
         moveDirection.y -= 9.81f * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
