@@ -1,26 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CharacterMovement : MonoBehaviour
 {
     public float speed = 5.0f;
-    public float jumpForce = 1.0f;
-    private bool isGrounded = false;
-    private Rigidbody rb;
-
-    private int doubleJumpCount = 0;
-    public int maxDoubleJumps = 1;
-
     
+
+
+    private CharacterController controller;
+    private Vector3 moveDirection = Vector3.zero;
     public Animator anim;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        controller = GetComponent<CharacterController>();
     }
     void Update()
     {
+        controller.Move(Vector3.down * Time.deltaTime * 9.81f);
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
@@ -30,7 +30,7 @@ public class CharacterMovement : MonoBehaviour
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
-            transform.Translate(direction * speed * Time.deltaTime, Space.World);
+            controller.Move(direction * speed * Time.deltaTime);
             anim.SetBool("IsMoving", true);
         }
         else
@@ -38,30 +38,7 @@ public class CharacterMovement : MonoBehaviour
             anim.SetBool("IsMoving", false);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
 
-            if (isGrounded)
-            {
-                anim.SetBool("IsJumping", true);
-                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                isGrounded = false;
-            }
-            else if (doubleJumpCount < maxDoubleJumps)
-            {
-                rb.AddForce(Vector3.up * (jumpForce / 2), ForceMode.Impulse);
-                doubleJumpCount++;
-            }
-        }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.layer == 3) // IF he's touching the ground
-        {
-            isGrounded = true;
-            anim.SetBool("IsJumping", !isGrounded);
-            doubleJumpCount = 0;
-        }
-    }
 }
