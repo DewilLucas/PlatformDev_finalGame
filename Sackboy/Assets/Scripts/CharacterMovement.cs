@@ -9,7 +9,6 @@ public class CharacterMovement : MonoBehaviour
     public float speed = 5.0f;
     
 
-
     private CharacterController controller;
     private Vector3 moveDirection = Vector3.zero;
     public Animator anim;
@@ -31,7 +30,17 @@ public class CharacterMovement : MonoBehaviour
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
             controller.Move(direction * speed * Time.deltaTime);
-            anim.SetBool("IsMoving", true);
+            if (GrabScript.grabScript.isGrabbing == true)
+            {
+                anim.SetBool("IsGrabbing", true);
+                anim.SetBool("IsMoving", false);
+            }
+            else
+            {
+                anim.SetBool("IsGrabbing", false);
+                anim.SetBool("IsMoving", true);
+            }
+            
         }
         else
         {

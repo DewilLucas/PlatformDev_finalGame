@@ -9,6 +9,15 @@ public class GrabScript : MonoBehaviour
     public Transform holdPoint;
 
     private GameObject heldObject;
+    public Animator animator;
+
+    public bool isGrabbing = false;
+    public static GrabScript grabScript;
+
+    void Start()
+    {
+        grabScript = this;
+    }
 
     void Update()
     {
@@ -22,6 +31,7 @@ public class GrabScript : MonoBehaviour
                 {
                     if (hitCollider.CompareTag("Grabbable"))
                     {
+                        isGrabbing = true;
                         heldObject = hitCollider.gameObject;
                         heldObject.GetComponent<Rigidbody>().isKinematic = true;
                         heldObject.transform.position = holdPoint.position;
@@ -32,6 +42,7 @@ public class GrabScript : MonoBehaviour
             }
             else
             {
+                isGrabbing = false;
                 // Throw the held object
                 heldObject.GetComponent<Rigidbody>().isKinematic = false;
                 heldObject.transform.parent = null;
@@ -44,6 +55,7 @@ public class GrabScript : MonoBehaviour
         if (heldObject != null)
         {
             heldObject.transform.position = holdPoint.position;
+            isGrabbing= true;
         }
     }
 }
