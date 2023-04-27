@@ -38,6 +38,16 @@ public class GrabScript : MonoBehaviour
                         heldObject.transform.parent = holdPoint;
                         break;
                     }
+                    /*if (hitCollider.CompareTag("BigObject"))
+                    {
+                        isGrabbing = true;
+                        heldObject = hitCollider.gameObject;
+                        heldObject.GetComponent<Rigidbody>().isKinematic = true;
+                        heldObject.transform.position = holdPoint.position;
+                        heldObject.transform.parent = holdPoint;
+                        break;
+                    }
+                    */
                 }
             }
             else

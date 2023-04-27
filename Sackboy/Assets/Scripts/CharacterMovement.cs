@@ -49,5 +49,14 @@ public class CharacterMovement : MonoBehaviour
 
 
     }
-
+    void OnControllerColliderHit(ControllerColliderHit other)
+    {
+        if (other.gameObject.layer == 8)
+        {
+            if (controller != null)
+            {
+                controller.Move(Vector3.up * 1000f * Time.deltaTime);
+            }
+        }
+    }
 }

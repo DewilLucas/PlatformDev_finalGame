@@ -9,7 +9,6 @@ public class FollowCamera : MonoBehaviour
     public float height = 10.0f; // The height of the camera above the target
     public float rotationDamping = 1.0f; // The speed at which the camera rotates
     public float heightDamping = 1.0f; // The speed at which the camera moves up and down
-
     void LateUpdate()
     {
         if (!target) return; // If there is no target, do nothing
