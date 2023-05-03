@@ -642,6 +642,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   anim: {fileID: 2033978619}
+  jumpVelocity: 50
 --- !u!64 &236671734
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1291,7 +1292,6 @@ GameObject:
   - component: {fileID: 1580591159}
   - component: {fileID: 1580591158}
   - component: {fileID: 1580591157}
-  - component: {fileID: 1580591161}
   m_Layer: 8
   m_Name: Jump pad
   m_TagString: JumpPad
@@ -1377,22 +1377,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1580591161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1580591156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ee3adde03e236e468e15da016b63abe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  jumpForce: 10
 --- !u!1 &2033978617 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7036213049465896255, guid: 66b6483b091d86f4588c978631bb0d3f, type: 3}

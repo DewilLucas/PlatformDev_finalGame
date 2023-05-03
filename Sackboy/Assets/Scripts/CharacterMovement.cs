@@ -13,6 +13,15 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     public Animator anim;
 
+
+    // Define a jump velocity that will be applied when the player lands on a jump pad
+    public float jumpVelocity = 15.0f;
+
+    // Keep track of whether the player is currently jumping
+    private bool isJumping = false;
+
+
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -20,16 +29,17 @@ public class CharacterMovement : MonoBehaviour
     void Update()
     {
         controller.Move(Vector3.down * Time.deltaTime * 9.81f);
+
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
+        moveDirection = new Vector3(horizontal, 0, vertical).normalized;
 
-        if (direction.magnitude >= 0.1f)
+        if (moveDirection.magnitude >= 0.1f)
         {
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
-            controller.Move(direction * speed * Time.deltaTime);
+            //controller.Move(moveDirection * speed * Time.deltaTime);
             if (GrabScript.grabScript.isGrabbing == true)
             {
                 anim.SetBool("IsGrabbing", true);
@@ -40,23 +50,26 @@ public class CharacterMovement : MonoBehaviour
                 anim.SetBool("IsGrabbing", false);
                 anim.SetBool("IsMoving", true);
             }
-            
+
         }
         else
         {
             anim.SetBool("IsMoving", false);
         }
 
-
-    }
-    void OnControllerColliderHit(ControllerColliderHit other)
-    {
-        if (other.gameObject.layer == 8)
+        // Check for jump pads
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 0.01f);
+        foreach (Collider collider in colliders)
         {
-            if (controller != null)
+            if (collider.gameObject.CompareTag("JumpPad") && controller.isGrounded)
             {
-                controller.Move(Vector3.up * 1000f * Time.deltaTime);
+                moveDirection.y = jumpVelocity;
+                // Apply the jump velocity
+                isJumping = true;
             }
         }
+
+        controller.Move(moveDirection * speed * Time.deltaTime);
+
     }
 }
