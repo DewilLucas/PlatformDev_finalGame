@@ -1162,10 +1162,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 236671730}
-  distance: 15
-  height: 10
-  rotationDamping: 1
-  heightDamping: 1
+  distance: 20
+  height: 15
+  rotationDamping: 5
+  heightDamping: 5
 --- !u!1 &1028466204
 GameObject:
   m_ObjectHideFlags: 0

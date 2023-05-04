@@ -20,7 +20,8 @@ public class CharacterMovement : MonoBehaviour
     // Keep track of whether the player is currently jumping
     private bool isJumping = false;
 
-
+    // Define the speed at which the character rotates
+    public float rotationSpeed = 10.0f;
 
     void Start()
     {
@@ -32,13 +33,14 @@ public class CharacterMovement : MonoBehaviour
 
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-
+        
         moveDirection = new Vector3(horizontal, 0, vertical).normalized;
 
         if (moveDirection.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
+            Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
             //controller.Move(moveDirection * speed * Time.deltaTime);
             if (GrabScript.grabScript.isGrabbing == true)
             {
