@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class CoinsController : MonoBehaviour
 {
     public float numberOfCoins;
@@ -12,7 +13,7 @@ public class CoinsController : MonoBehaviour
     private string coinsTag = "Coin";
     public List<Transform> coins;
     public GameObject coinPrefab;
-
+    public TMP_Text CoinsCounter;
     void Start()
     {
         coins = new List<Transform>();
@@ -38,6 +39,7 @@ public class CoinsController : MonoBehaviour
             if (Vector3.Distance(transform.position,coin.position) <= pickupDistance)
             {
                 numberOfCoins++;
+                CoinsCounter.text = "Score:"+ numberOfCoins.ToString();
                 coin.gameObject.SetActive(false);
                 coins.Remove(coin);
             }
