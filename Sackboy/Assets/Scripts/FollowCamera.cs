@@ -9,50 +9,15 @@ public class FollowCamera : MonoBehaviour
     public float height = 15.0f; // The height of the camera above the target
     public float rotationDamping = 5.0f; // The speed at which the camera rotates
     public float heightDamping = 5.0f; // The speed at which the camera moves up and down
-    public float wallDetectionDistance = 2.0f; // The distance to detect walls
-    public float topViewHeight = 30.0f; // The height of the camera in top view
-    public float topViewAngle = 90.0f; // The angle of the camera in top view
-    public float topViewDistance = 10.0f; // The distance of the camera in top view
-
-    private bool isCloseToWall = false; // Whether the camera is close to a wall
-
     void LateUpdate()
     {
         if (!target) return; // If there is no target, do nothing
 
-        float wantedRotationAngle;
-        float wantedHeight;
-        float currentRotationAngle;
-        float currentHeight;
+        float wantedRotationAngle = target.eulerAngles.y; // Get the target's y-rotation
+        float wantedHeight = target.position.y + height; // Calculate the height of the camera above the target
 
-        // Check if the camera is close to a wall
-        RaycastHit hit;
-         if (Physics.Raycast(target.position, -transform.forward, out hit, wallDetectionDistance))
-        {
-            isCloseToWall = true;
-        }
-        else
-        {
-            isCloseToWall = false;
-        }
-
-        if (isCloseToWall)
-        {
-            // Switch to top view
-            wantedRotationAngle = topViewAngle;
-            wantedHeight = topViewHeight;
-            distance = topViewDistance;
-        }
-        else
-        {
-            // Switch back to follow view
-            wantedRotationAngle = target.eulerAngles.y;
-            wantedHeight = target.position.y + height;
-            distance = 20.0f;
-        }
-
-        currentRotationAngle = transform.eulerAngles.y; // Get the camera's y-rotation
-        currentHeight = transform.position.y; // Get the camera's height
+        float currentRotationAngle = transform.eulerAngles.y; // Get the camera's y-rotation
+        float currentHeight = transform.position.y; // Get the camera's height
 
         // Smoothly rotate the camera towards the target's rotation
         currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
