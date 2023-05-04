@@ -34,20 +34,27 @@ public class CoinsController : MonoBehaviour
             }
         }
 
+        List<Transform> coinsToRemove = new List<Transform>();
+
         foreach (var coin in coins)
         {
-            if (Vector3.Distance(transform.position,coin.position) <= pickupDistance)
+            if (Vector3.Distance(transform.position, coin.position) <= pickupDistance)
             {
                 numberOfCoins++;
-                CoinsCounter.text = "Score:"+ numberOfCoins.ToString();
-                coin.gameObject.SetActive(false);
-                coins.Remove(coin);
+                CoinsCounter.text = "Score:" + numberOfCoins;
+                coinsToRemove.Add(coin);
             }
             else
             {
                 float step = pickupSpeed * Time.deltaTime;
                 coin.position = Vector3.MoveTowards(coin.position, transform.position, step);
             }
+        }
+
+        foreach (var coin in coinsToRemove)
+        {
+            coin.gameObject.SetActive(false);
+            coins.Remove(coin);
         }
     }
 }
