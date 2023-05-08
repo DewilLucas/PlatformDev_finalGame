@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class JumpCharacterScript : MonoBehaviour
 {
-    public float jumpSpeed = 18.0f;
+    public float jumpSpeed = 5.0f;
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController controller;
     public Animator anim;

@@ -15,7 +15,7 @@ public class CharacterMovement : MonoBehaviour
 
 
     // Define a jump velocity that will be applied when the player lands on a jump pad
-    public float jumpVelocity = 15.0f;
+    public float jumpVelocity = 10.0f;
 
     // Keep track of whether the player is currently jumping
     private bool isJumping = false;
@@ -29,13 +29,27 @@ public class CharacterMovement : MonoBehaviour
     }
     void Update()
     {
-        controller.Move(Vector3.down * Time.deltaTime * 9.81f);
+        
 
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        
-        moveDirection = new Vector3(horizontal, 0, vertical).normalized;
+       // moveDirection = new Vector3(horizontal, 0, vertical).normalized;
+        // Only update the x and z components of moveDirection if the player is not jumping
+        if (!isJumping)
+        {
+            moveDirection = new Vector3(horizontal, 0, vertical).normalized;
+        }
+        else
+        {
+            // Keep the x and z components of moveDirection, and only update the y component
+            //moveDirection += Physics.gravity * Time.deltaTime;
 
+            controller.Move(Vector3.down * Time.deltaTime * 9.81f);
+            if (controller.isGrounded ||Math.Floor(moveDirection.y) <= 0)
+            {
+                isJumping = false;
+            }
+        }
         if (moveDirection.magnitude >= 0.1f)
         {
             float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
@@ -73,5 +87,6 @@ public class CharacterMovement : MonoBehaviour
 
         controller.Move(moveDirection * speed * Time.deltaTime);
 
+       
     }
 }
