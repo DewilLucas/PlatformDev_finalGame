@@ -17,10 +17,10 @@ public class CoinsController : MonoBehaviour
     void Start()
     {
         coins = new List<Transform>();
-        for (int i = 0; i < 10; i++)
+        /*for (int i = 0; i < 10; i++)
         {
             var coin = Instantiate(coinPrefab, new Vector3(0, 0.805f, Random.Range(9, 20)), Quaternion.identity);
-        }
+        }*/
     }
 
     void FixedUpdate()
