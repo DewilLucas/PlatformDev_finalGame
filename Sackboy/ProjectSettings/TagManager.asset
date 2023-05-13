@@ -8,6 +8,7 @@ TagManager:
   - Coin
   - Grabbable
   - JumpPad
+  - ZoomCamera
   layers:
   - Default
   - TransparentFX

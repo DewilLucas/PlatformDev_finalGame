@@ -8,7 +8,7 @@ public class JumpCharacterScript : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     private CharacterController controller;
     public Animator anim;
-    private int _DubbleJump = 0;
+    public static int DubbleJump = 0;
     private int _MaxDubbleJump = 2;
     void Start()
     {
@@ -20,16 +20,16 @@ public class JumpCharacterScript : MonoBehaviour
         if (controller.isGrounded)
         {
             anim.SetBool("IsJumping", false);
-            _DubbleJump = 0;
+            DubbleJump = 0;
             moveDirection.y = 0.0f;
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-                _DubbleJump++;
-                if (_DubbleJump <= _MaxDubbleJump)
+                DubbleJump++;
+                if (DubbleJump <= _MaxDubbleJump)
                 {
-                    if (_DubbleJump == _MaxDubbleJump)
+                    if (DubbleJump == _MaxDubbleJump)
                     {
                         anim.SetBool("IsJumping", false);
                     }
@@ -41,10 +41,10 @@ public class JumpCharacterScript : MonoBehaviour
                 }
                 else
                 {
-                    _DubbleJump = 3;
+                    DubbleJump = 3;
                 }
         }
-        Debug.Log(_DubbleJump);
+        Debug.Log(DubbleJump);
         moveDirection.y -= 9.81f * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
     }

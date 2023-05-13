@@ -13,6 +13,7 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     public Animator anim;
 
+    public static bool ZoomCamera = false;
 
     // Define a jump velocity that will be applied when the player lands on a jump pad
     public float jumpVelocity = 10.0f;
@@ -29,8 +30,6 @@ public class CharacterMovement : MonoBehaviour
     }
     void Update()
     {
-        
-
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
        // moveDirection = new Vector3(horizontal, 0, vertical).normalized;
@@ -79,14 +78,39 @@ public class CharacterMovement : MonoBehaviour
         {
             if (collider.gameObject.CompareTag("JumpPad") && controller.isGrounded)
             {
+                JumpCharacterScript.DubbleJump = 2; // don't make the character jump again until they've landed
                 moveDirection.y = jumpVelocity;
                 // Apply the jump velocity
                 isJumping = true;
             }
+
         }
 
         controller.Move(moveDirection * speed * Time.deltaTime);
 
        
+    }
+
+    void LateUpdate()
+    {
+        if (controller.transform.position.y <=-5)
+        {
+            controller.transform.position = new Vector3(0, 0, 0); // if the player falls off the map, reset their position to the origin
+        }
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("ZoomCamera"))
+        {
+            ZoomCamera = true;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("ZoomCamera"))
+        {
+            ZoomCamera = false;
+        }
     }
 }

@@ -5,14 +5,23 @@ using UnityEngine;
 public class FollowCamera : MonoBehaviour
 {
     public Transform target; // The target to follow
-    public float distance = 20.0f; // The distance from the target
+    public float distance = 10.0f; // The distance from the target
     public float height = 15.0f; // The height of the camera above the target
     public float rotationDamping = 5.0f; // The speed at which the camera rotates
     public float heightDamping = 5.0f; // The speed at which the camera moves up and down
     void LateUpdate()
     {
         if (!target) return; // If there is no target, do nothing
-
+        if (CharacterMovement.ZoomCamera == true)
+        {
+            distance = 5f;
+            height = 8f;
+        }
+        else
+        {
+            distance = 10f;
+            height = 15f;
+        }
         float wantedRotationAngle = target.eulerAngles.y; // Get the target's y-rotation
         float wantedHeight = target.position.y + height; // Calculate the height of the camera above the target
 

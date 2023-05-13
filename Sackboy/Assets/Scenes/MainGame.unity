@@ -781,7 +781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   anim: {fileID: 2033978619}
-  jumpVelocity: 4
+  jumpVelocity: 5
   rotationSpeed: 10
 --- !u!64 &236671734
 MeshCollider:
@@ -827,7 +827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b0b75346579704e9c15225c8d053e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpSpeed: 10
+  jumpSpeed: 7
   anim: {fileID: 2033978619}
 --- !u!114 &236671738
 MonoBehaviour:
@@ -1254,8 +1254,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.6535631, z: 0.999999}
+  m_Center: {x: 0, y: 0.3267816, z: 0}
 --- !u!23 &540200433
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1860,8 +1860,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1.7993466, z: 0.999999}
+  m_Center: {x: 0, y: 0.39967257, z: 0}
 --- !u!23 &871212486
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2371,8 +2371,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.9999998, y: 1.8338118, z: 2.8561277}
+  m_Center: {x: 0, y: 0.41690508, z: -0.92806464}
 --- !u!23 &1125221381
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2468,8 +2468,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.5563407, y: 1.8300645, z: 0.999999}
+  m_Center: {x: -0.27817035, y: 0.41503158, z: 0}
 --- !u!23 &1340694000
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2546,7 +2546,7 @@ Transform:
   m_GameObject: {fileID: 1346746410}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -15}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 2.6975, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 565290127}
@@ -2574,9 +2574,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1420773894}
+  - component: {fileID: 1420773895}
   m_Layer: 0
   m_Name: Stair
-  m_TagString: Untagged
+  m_TagString: ZoomCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2600,6 +2601,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1420773895
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420773893}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.818315, y: 15.12903, z: 32.779953}
+  m_Center: {x: 0.05968976, y: 6.1666927, z: 4.648842}
 --- !u!1 &1553663979
 GameObject:
   m_ObjectHideFlags: 0
@@ -2626,7 +2640,7 @@ Transform:
   m_GameObject: {fileID: 1553663979}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 15}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 2.212, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 565290127}
@@ -2671,7 +2685,7 @@ Transform:
   m_GameObject: {fileID: 1570744651}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 15}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 2.6918, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 565290127}
@@ -2993,8 +3007,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.9999998, y: 1.9796593, z: 3.1505542}
+  m_Center: {x: 0, y: 0.48982912, z: -1.0752783}
 --- !u!23 &1990971919
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3120,8 +3134,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.3215332, y: 1.9828992, z: 0.999999}
+  m_Center: {x: 0.1607666, y: 0.49144942, z: 0}
 --- !u!23 &2062911217
 MeshRenderer:
   m_ObjectHideFlags: 0
