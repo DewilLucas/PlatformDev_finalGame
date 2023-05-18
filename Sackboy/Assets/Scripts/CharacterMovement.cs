@@ -60,29 +60,35 @@ public class CharacterMovement : MonoBehaviour
         }
         if (Ennemies != null)
         {
-            int enemyCount = 0;
             foreach (var ennemy in Ennemies)
             {
-                enemyCount++;
                 if (ennemy.hasHitTarget)
                 {
-                    _EnnemyHitCounter++;
-                    if (_EnnemyHitCounter == 50)
+                    if (Input.GetMouseButtonDown(0))
                     {
-                        _EnnemyHitCounter = 0;
-                        _lives--;
-                        if (_lives <= 0)
-                        {
-                            _lives = 0;
-                            _isDead = true;
-                            anim.SetBool("IsDead", true);
-                            deadAnimBlock++;
-                        }
+                        ennemy.hasHitTarget = false;
+                        ennemy.gameObject.SetActive(false); // kill the ennemy
                     }
-                    Debug.Log(_lives);
+                    else
+                    {
+                        _EnnemyHitCounter++;
+                        if (_EnnemyHitCounter == 50)
+                        {
+                            _EnnemyHitCounter = 0;
+                            _lives--;
+                            if (_lives <= 0)
+                            {
+                                _lives = 0;
+                                _isDead = true;
+                                anim.SetBool("IsDead", true);
+                                deadAnimBlock++;
+                            }
+                        }
+                        Debug.Log(_lives);
+                    }
+                    
                 }
             }
-            enemyCount = 0;
         }
         
 
