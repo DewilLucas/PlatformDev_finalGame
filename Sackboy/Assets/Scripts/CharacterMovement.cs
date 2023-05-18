@@ -28,13 +28,64 @@ public class CharacterMovement : MonoBehaviour
     private bool IsJumpPadEnabled = true;
 
 
+
+    public AiController[] Ennemies;
+    private int _EnnemyHitCounter = 0;
+
     private float JumpPadTimer = 0.0f;
+
+
+
+    private int _lives =5;
+    private bool _isDead = false;
+    private int deadAnimBlock = 0;
     void Start()
     {
         controller = GetComponent<CharacterController>();
     }
     void Update()
     {
+
+        if (_isDead && deadAnimBlock == 1)
+        {
+            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("IsDead"))
+            {
+                anim.Play("IsDead");
+            }
+            else if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
+            {
+                anim.speed = 0f; // Pause the animation at the end
+            }
+            return;
+        }
+        if (Ennemies != null)
+        {
+            int enemyCount = 0;
+            foreach (var ennemy in Ennemies)
+            {
+                enemyCount++;
+                if (ennemy.hasHitTarget)
+                {
+                    _EnnemyHitCounter++;
+                    if (_EnnemyHitCounter == 50)
+                    {
+                        _EnnemyHitCounter = 0;
+                        _lives--;
+                        if (_lives <= 0)
+                        {
+                            _lives = 0;
+                            _isDead = true;
+                            anim.SetBool("IsDead", true);
+                            deadAnimBlock++;
+                        }
+                    }
+                    Debug.Log(_lives);
+                }
+            }
+            enemyCount = 0;
+        }
+        
+
         JumpPadTimer += Time.deltaTime;
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
@@ -92,7 +143,7 @@ public class CharacterMovement : MonoBehaviour
                 IsJumpPadEnabled = false;
                 JumpPadTimer = 0.0f;
             }
-
+            
         }
         // If the jump pad is disabled, wait 5 seconds before enabling it again, this is to prevent the player from jumping multiple times in a row
         if (IsJumpPadEnabled == false && Math.Floor(JumpPadTimer) == 5 )

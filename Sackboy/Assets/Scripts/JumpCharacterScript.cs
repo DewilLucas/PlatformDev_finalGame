@@ -44,7 +44,7 @@ public class JumpCharacterScript : MonoBehaviour
                     DubbleJump = 3;
                 }
         }
-        Debug.Log(DubbleJump);
+        //Debug.Log(DubbleJump);
         moveDirection.y -= 9.81f * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
     }

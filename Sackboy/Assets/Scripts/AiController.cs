@@ -12,7 +12,7 @@ public class AiController : MonoBehaviour
 
     private Rigidbody rb;
     private float groundY; // Fixed y position
-    private bool hasHitTarget = false; // Variable to track if the enemy has touched the target
+    public bool hasHitTarget = false; // Variable to track if the enemy has touched the target
 
     private void Start()
     {
@@ -43,6 +43,7 @@ public class AiController : MonoBehaviour
                     Quaternion toRotation = Quaternion.LookRotation(direction);
                     transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, 10f * Time.deltaTime);
                 }
+                hasHitTarget = false;
             }
             else
             {
