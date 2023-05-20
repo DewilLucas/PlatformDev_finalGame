@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainGameScript : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class MainGameScript : MonoBehaviour
     public GameObject ScoreText;
 
     public GameObject Lives;
+
+
+    public GameObject PauzeMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -35,13 +39,28 @@ public class MainGameScript : MonoBehaviour
         {
             Time.timeScale = 1f;
             isPaused = false;
+            PauzeMenu.SetActive(false);
         }
         else
         {
             Time.timeScale = 0f;
             isPaused = true;
+            PauzeMenu.SetActive(true);
         }
     }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        isPaused = false;
+        PauzeMenu.SetActive(false);
+    }
+
+    public void BackToMainMenu()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
 
     public void StartGame()
     {
