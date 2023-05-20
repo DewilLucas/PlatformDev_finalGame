@@ -5,6 +5,7 @@ using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -52,6 +53,11 @@ public class CharacterMovement : MonoBehaviour
     float windowShowDuration = 2.0f; // Time in seconds to show the window
     float windowDownDuration = 0.5f; // Time in seconds to move the window down
     public NeedObjectToContinueScript needObjectToContinueScript;
+
+
+    public GameObject DeadPopUp;
+
+    public GameObject coinPrefab;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -73,9 +79,11 @@ public class CharacterMovement : MonoBehaviour
         {
             if (_isDead && deadAnimBlock == 1)
             {
+                DeadPopUp.SetActive(true);
                 if (!anim.GetCurrentAnimatorStateInfo(0).IsName("IsDead"))
                 {
                     anim.Play("IsDead");
+                    
                 }
                 else if (anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
                 {
@@ -92,6 +100,7 @@ public class CharacterMovement : MonoBehaviour
                         if (Input.GetKeyDown(KeyCode.V))
                         {
                             ennemy.hasHitTarget = false;
+                            Instantiate(coinPrefab, ennemy.transform.position, Quaternion.identity);
                             ennemy.gameObject.SetActive(false); // kill the ennemy
                         }
                         else
@@ -248,4 +257,5 @@ public class CharacterMovement : MonoBehaviour
 
         transformToPop.position = targetPosition;
     }
+
 }

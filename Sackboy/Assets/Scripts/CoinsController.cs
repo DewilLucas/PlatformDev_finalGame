@@ -14,6 +14,7 @@ public class CoinsController : MonoBehaviour
     public List<Transform> coins;
     public GameObject coinPrefab;
     public TMP_Text CoinsCounter;
+    public TMP_Text CoinsCounterDeath;
     void Start()
     {
         coins = new List<Transform>();
@@ -42,6 +43,7 @@ public class CoinsController : MonoBehaviour
             {
                 numberOfCoins++;
                 CoinsCounter.text = "Score:" + numberOfCoins;
+                CoinsCounterDeath.text = "X" + numberOfCoins;
                 coinsToRemove.Add(coin);
             }
             else

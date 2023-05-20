@@ -58,7 +58,7 @@ public class MainGameScript : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Restart the game + Go back to main menu
     }
 
 
