@@ -51,6 +51,7 @@ public class MainGameScript : MonoBehaviour
         QuitButton.SetActive(false);
         ScoreText.SetActive(true);
         Lives.SetActive(true);
+
     }
     public void QuitGame()
     {

@@ -14,6 +14,7 @@ public class GrabScript : MonoBehaviour
     public bool isGrabbing = false;
     public static GrabScript grabScript;
 
+    public GameObject PressF;
     void Start()
     {
         grabScript = this;
@@ -23,6 +24,7 @@ public class GrabScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
+            PressF.SetActive(false);
             if (heldObject == null)
             {
                 // Try to pick up object
