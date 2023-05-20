@@ -58,6 +58,8 @@ public class CharacterMovement : MonoBehaviour
     public GameObject DeadPopUp;
 
     public GameObject coinPrefab;
+
+    private bool Spawn2 = false;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -204,6 +206,12 @@ public class CharacterMovement : MonoBehaviour
                     }
                 }
 
+                if (collider.gameObject.CompareTag("Respawn"))
+                {
+                    Spawn2 = true;
+                }
+
+
             }
             // If the jump pad is disabled, wait 5 seconds before enabling it again, this is to prevent the player from jumping multiple times in a row
             if (IsJumpPadEnabled == false && Math.Floor(JumpPadTimer) == 5)
@@ -221,9 +229,14 @@ public class CharacterMovement : MonoBehaviour
 
     void LateUpdate()
     {
-        if (controller.transform.position.y <=-5)
+        if (controller.transform.position.y <=-5 && Spawn2 == false)
         {
             controller.transform.position = new Vector3(0, 0, 0); // if the player falls off the map, reset their position to the origin
+        }
+
+        if (controller.transform.position.y <= -5 && Spawn2 == true)
+        {
+            controller.transform.position = new Vector3(15f, 20f, 80f); // if the player falls off the map, and its the second spawn, reset their position to the second spawn
         }
     }
     void OnTriggerEnter(Collider other)

@@ -24,9 +24,9 @@ public class GrabScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            PressF.SetActive(false);
             if (heldObject == null)
             {
+                PressF.SetActive(false);
                 // Try to pick up object
                 Collider[] hitColliders = Physics.OverlapSphere(transform.position, grabRange);
                 foreach (Collider hitCollider in hitColliders)
@@ -40,16 +40,6 @@ public class GrabScript : MonoBehaviour
                         heldObject.transform.parent = holdPoint;
                         break;
                     }
-                    /*if (hitCollider.CompareTag("BigObject"))
-                    {
-                        isGrabbing = true;
-                        heldObject = hitCollider.gameObject;
-                        heldObject.GetComponent<Rigidbody>().isKinematic = true;
-                        heldObject.transform.position = holdPoint.position;
-                        heldObject.transform.parent = holdPoint;
-                        break;
-                    }
-                    */
                 }
             }
             else
