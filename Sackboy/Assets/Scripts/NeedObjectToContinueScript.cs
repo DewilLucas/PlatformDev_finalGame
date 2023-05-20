@@ -15,6 +15,8 @@ public class NeedObjectToContinueScript : MonoBehaviour
     private bool isOpening = false;
     private bool isClosing = false;
 
+    public bool ShowTutorial = true;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == requiredObject)
@@ -22,6 +24,7 @@ public class NeedObjectToContinueScript : MonoBehaviour
             Debug.Log("Object placed on trigger pad!");
             isOpening = true;
             isClosing = false;
+            ShowTutorial = false;
         }
     }
 
@@ -39,6 +42,7 @@ public class NeedObjectToContinueScript : MonoBehaviour
     {
         if (isOpening)
         {
+            ShowTutorial = false;
             float leftDoorTargetRotation = -pivotAngle;
             float rightDoorTargetRotation = pivotAngle;
 
@@ -56,6 +60,7 @@ public class NeedObjectToContinueScript : MonoBehaviour
         }
         else if (isClosing)
         {
+            ShowTutorial = true;
             float leftDoorTargetRotation = 0.0f;
             float rightDoorTargetRotation = 0.0f;
 

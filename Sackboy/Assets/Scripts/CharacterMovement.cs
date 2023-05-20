@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -41,12 +42,33 @@ public class CharacterMovement : MonoBehaviour
     private int deadAnimBlock = 0;
     public GameObject[] Lives;
     public MainGameScript mainGameScript;
+
+
+
+    public GameObject TutorialWindow;
+    public TMP_Text TutorialText;
+    private Coroutine moveWindowCoroutine;
+    bool isWindowActive = false;
+    float windowShowDuration = 2.0f; // Time in seconds to show the window
+    float windowDownDuration = 0.5f; // Time in seconds to move the window down
+    public NeedObjectToContinueScript needObjectToContinueScript;
     void Start()
     {
         controller = GetComponent<CharacterController>();
     }
     void Update()
     {
+        if (isWindowActive)
+        {
+            windowShowDuration -= Time.deltaTime;
+
+            if (windowShowDuration <= 0f)
+            {
+                StartCoroutine(PopWindow(TutorialWindow.transform, windowDownDuration, new Vector2(TutorialWindow.transform.position.x, -100)));
+                isWindowActive = false;
+            }
+        }
+
         if (!mainGameScript.isPaused)
         {
             if (_isDead && deadAnimBlock == 1)
@@ -154,6 +176,25 @@ public class CharacterMovement : MonoBehaviour
                     JumpPadTimer = 0.0f;
                 }
 
+                if (collider.gameObject.CompareTag("DepositPad") && needObjectToContinueScript.ShowTutorial == true)
+                {
+                    if (!isWindowActive)
+                    {
+                        Debug.Log("You need to bring the cube!");
+                        TutorialWindow.SetActive(true);
+                        StartCoroutine(PopWindow(TutorialWindow.transform, 0.5f, new Vector2(TutorialWindow.transform.position.x, 100)));
+                        isWindowActive = true;
+                        windowShowDuration = 2.0f;
+                        // Change the text of the window
+                        TutorialText.text = "To open the door you need to find, and deposit the cube here ! ";
+                    }
+                    else
+                    {
+                        // Reset the timer and show the window again
+                        windowShowDuration = 2.0f;
+                    }
+                }
+
             }
             // If the jump pad is disabled, wait 5 seconds before enabling it again, this is to prevent the player from jumping multiple times in a row
             if (IsJumpPadEnabled == false && Math.Floor(JumpPadTimer) == 5)
@@ -190,5 +231,21 @@ public class CharacterMovement : MonoBehaviour
         {
             ZoomCamera = false;
         }
+    }
+
+    private IEnumerator PopWindow(Transform transformToPop, float duration, Vector2 targetPosition)
+    {
+        Vector2 initialPosition = transformToPop.position;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            float t = elapsedTime / duration;
+            transformToPop.position = Vector2.Lerp(initialPosition, targetPosition, t);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transformToPop.position = targetPosition;
     }
 }
