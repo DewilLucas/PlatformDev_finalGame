@@ -102,8 +102,16 @@ public class CharacterMovement : MonoBehaviour
                         if (Input.GetKeyDown(KeyCode.V))
                         {
                             ennemy.hasHitTarget = false;
-                            Instantiate(coinPrefab, ennemy.transform.position, Quaternion.identity);
+                            float spawnOffset = 1.0f;
+
+                            // Calculate the spawn position with the offset
+                            Vector3 spawnPosition = ennemy.transform.position + (ennemy.transform.forward * spawnOffset);
+
+                            // Spawn a coin at the adjusted position
                             ennemy.gameObject.SetActive(false); // kill the ennemy
+
+                            GameObject coin = Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
+                            coin.SetActive(true);
                         }
                         else
                         {
