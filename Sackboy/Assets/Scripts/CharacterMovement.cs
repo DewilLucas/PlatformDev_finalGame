@@ -39,6 +39,8 @@ public class CharacterMovement : MonoBehaviour
     private int _lives =5;
     private bool _isDead = false;
     private int deadAnimBlock = 0;
+    public GameObject[] Lives;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -64,7 +66,7 @@ public class CharacterMovement : MonoBehaviour
             {
                 if (ennemy.hasHitTarget)
                 {
-                    if (Input.GetMouseButtonDown(0))
+                    if (Input.GetKeyDown(KeyCode.V))
                     {
                         ennemy.hasHitTarget = false;
                         ennemy.gameObject.SetActive(false); // kill the ennemy
@@ -76,6 +78,7 @@ public class CharacterMovement : MonoBehaviour
                         {
                             _EnnemyHitCounter = 0;
                             _lives--;
+                            Lives[_lives].SetActive(false);
                             if (_lives <= 0)
                             {
                                 _lives = 0;
