@@ -60,6 +60,9 @@ public class CharacterMovement : MonoBehaviour
     public GameObject coinPrefab;
 
     private bool Spawn2 = false;
+    
+    public GameObject[] Ropes;
+    public GameObject[] RopeCoins;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -219,7 +222,15 @@ public class CharacterMovement : MonoBehaviour
                     Spawn2 = true;
                 }
 
-
+                if (collider.gameObject.CompareTag("RopeTrigger1"))
+                {
+                    collider.gameObject.SetActive(false);
+                    StartCoroutine(GrowRopeSmoothly(Ropes[0].transform));
+                    foreach (var coin in RopeCoins)
+                    {
+                        coin.SetActive(true);
+                    }
+                }
             }
             // If the jump pad is disabled, wait 5 seconds before enabling it again, this is to prevent the player from jumping multiple times in a row
             if (IsJumpPadEnabled == false && Math.Floor(JumpPadTimer) == 5)
@@ -287,5 +298,25 @@ public class CharacterMovement : MonoBehaviour
 
         transformToPop.position = targetPosition;
     }
+    private IEnumerator GrowRopeSmoothly(Transform ropeTransform)
+    {
+        float startY = ropeTransform.localScale.y;
+        float targetY = 18f;
+        float startX = ropeTransform.position.x;
+        float targetX = 65f;
+        float growthSpeed = 1f;
 
+        while (ropeTransform.localScale.y < targetY)
+        {
+            float newY = Mathf.MoveTowards(ropeTransform.localScale.y, targetY, growthSpeed * Time.deltaTime);
+            ropeTransform.localScale = new Vector3(ropeTransform.localScale.x, newY, ropeTransform.localScale.z);
+
+            float newX = Mathf.MoveTowards(ropeTransform.position.x, targetX, growthSpeed * Time.deltaTime);
+            ropeTransform.position = new Vector3(newX, ropeTransform.position.y, ropeTransform.position.z);
+
+           
+
+            yield return null;
+        }
+    }
 }

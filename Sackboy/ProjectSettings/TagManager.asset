@@ -11,6 +11,7 @@ TagManager:
   - ZoomCamera
   - Ennemy
   - DepositPad
+  - RopeTrigger1
   layers:
   - Default
   - TransparentFX
