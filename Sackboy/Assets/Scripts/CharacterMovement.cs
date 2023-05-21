@@ -245,6 +245,15 @@ public class CharacterMovement : MonoBehaviour
         if (controller.transform.position.y <= -5 && Spawn2 == true)
         {
             controller.transform.position = new Vector3(15f, 20f, 80f); // if the player falls off the map, and its the second spawn, reset their position to the second spawn
+            _lives--;
+            Lives[_lives].SetActive(false);
+            if (_lives <= 0)
+            {
+                _lives = 0;
+                _isDead = true;
+                anim.SetBool("IsDead", true);
+                deadAnimBlock++;
+            }
         }
     }
     void OnTriggerEnter(Collider other)
