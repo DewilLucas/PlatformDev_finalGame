@@ -12,6 +12,7 @@ TagManager:
   - Ennemy
   - DepositPad
   - RopeTrigger1
+  - RopeTrigger2
   layers:
   - Default
   - TransparentFX

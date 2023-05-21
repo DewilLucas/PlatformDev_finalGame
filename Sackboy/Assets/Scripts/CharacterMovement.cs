@@ -63,6 +63,7 @@ public class CharacterMovement : MonoBehaviour
     
     public GameObject[] Ropes;
     public GameObject[] RopeCoins;
+    public GameObject[] RopeCoins2;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -227,6 +228,15 @@ public class CharacterMovement : MonoBehaviour
                     collider.gameObject.SetActive(false);
                     StartCoroutine(GrowRopeSmoothly(Ropes[0].transform));
                     foreach (var coin in RopeCoins)
+                    {
+                        coin.SetActive(true);
+                    }
+                }
+                if (collider.gameObject.CompareTag("RopeTrigger2"))
+                {
+                    collider.gameObject.SetActive(false);
+                    StartCoroutine(GrowRopeSmoothly(Ropes[1].transform));
+                    foreach (var coin in RopeCoins2)
                     {
                         coin.SetActive(true);
                     }
