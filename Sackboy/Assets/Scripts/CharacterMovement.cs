@@ -16,7 +16,6 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     public Animator anim;
     
-    public static bool ZoomCamera = false;
 
     // Define a jump velocity that will be applied when the player lands on a jump pad
     public float jumpVelocity = 10.0f;
@@ -144,6 +143,8 @@ public class CharacterMovement : MonoBehaviour
             JumpPadTimer += Time.deltaTime;
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
+
+            
             // moveDirection = new Vector3(horizontal, 0, vertical).normalized;
             // Only update the x and z components of moveDirection if the player is not jumping
             if (!isJumping)
@@ -275,21 +276,6 @@ public class CharacterMovement : MonoBehaviour
                 anim.SetBool("IsDead", true);
                 deadAnimBlock++;
             }
-        }
-    }
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("ZoomCamera"))
-        {
-            ZoomCamera = true;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("ZoomCamera"))
-        {
-            ZoomCamera = false;
         }
     }
 

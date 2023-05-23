@@ -5,42 +5,20 @@ using UnityEngine;
 public class FollowCamera : MonoBehaviour
 {
     public Transform target; // The target to follow
-    public float distance = 10.0f; // The distance from the target
-    public float height = 15.0f; // The height of the camera above the target
-    public float rotationDamping = 5.0f; // The speed at which the camera rotates
-    public float heightDamping = 5.0f; // The speed at which the camera moves up and down
+    public Vector3 offset = new Vector3(0f, 10f, -15f); // The offset from the target's position
+
     void LateUpdate()
     {
         if (!target) return; // If there is no target, do nothing
-        if (CharacterMovement.ZoomCamera == true)
-        {
-            distance = 5f;
-            height = 8f;
-        }
-        else
-        {
-            distance = 10f;
-            height = 15f;
-        }
-        float wantedRotationAngle = target.eulerAngles.y; // Get the target's y-rotation
-        float wantedHeight = target.position.y + height; // Calculate the height of the camera above the target
 
-        float currentRotationAngle = transform.eulerAngles.y; // Get the camera's y-rotation
-        float currentHeight = transform.position.y; // Get the camera's height
+        
+        // Calculate the desired position for the camera
+        Vector3 desiredPosition = target.position + offset;
 
-        // Smoothly rotate the camera towards the target's rotation
-        currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
+        // Set the camera's position to the desired position
+        transform.position = desiredPosition;
 
-        // Smoothly move the camera towards the target's height
-        currentHeight = Mathf.Lerp(currentHeight, wantedHeight, heightDamping * Time.deltaTime);
-
-        // Set the camera's position and rotation
-        Quaternion currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
-        Vector3 newPosition = target.position;
-        newPosition -= currentRotation * Vector3.forward * distance;
-        newPosition.y = currentHeight;
-
-        transform.position = newPosition;
+        // Make the camera look at the target
         transform.LookAt(target);
     }
 }
