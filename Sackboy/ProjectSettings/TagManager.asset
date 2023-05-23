@@ -13,6 +13,7 @@ TagManager:
   - DepositPad
   - RopeTrigger1
   - RopeTrigger2
+  - 3RDFloor
   layers:
   - Default
   - TransparentFX

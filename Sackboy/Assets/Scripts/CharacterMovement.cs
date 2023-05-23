@@ -16,6 +16,8 @@ public class CharacterMovement : MonoBehaviour
     private Vector3 moveDirection = Vector3.zero;
     public Animator anim;
     
+    public static bool ZoomCamera = false;
+    public static bool SwitchCamera = false;
 
     // Define a jump velocity that will be applied when the player lands on a jump pad
     public float jumpVelocity = 10.0f;
@@ -189,7 +191,7 @@ public class CharacterMovement : MonoBehaviour
             Collider[] colliders = Physics.OverlapSphere(transform.position, 0.01f);
             foreach (Collider collider in colliders)
             {
-
+                
                 if (collider.gameObject.CompareTag("JumpPad") && controller.isGrounded && IsJumpPadEnabled == true)
                 {
                     JumpCharacterScript.DubbleJump = 2; // don't make the character jump again until they've landed
@@ -243,8 +245,8 @@ public class CharacterMovement : MonoBehaviour
                     }
                 }
             }
-            // If the jump pad is disabled, wait 5 seconds before enabling it again, this is to prevent the player from jumping multiple times in a row
-            if (IsJumpPadEnabled == false && Math.Floor(JumpPadTimer) == 5)
+            // If the jump pad is disabled, wait 2 seconds before enabling it again, this is to prevent the player from jumping multiple times in a row
+            if (IsJumpPadEnabled == false && Math.Floor(JumpPadTimer) == 2)
             {
                 JumpPadTimer = 0.0f;
                 IsJumpPadEnabled = true;
@@ -278,6 +280,26 @@ public class CharacterMovement : MonoBehaviour
             }
         }
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("ZoomCamera"))
+        {
+            ZoomCamera = true;
+        }
+
+        if (other.gameObject.CompareTag("3RDFloor"))
+        {
+            SwitchCamera = true;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("ZoomCamera"))
+        {
+            ZoomCamera = false;
+        }
+    }
 
     private IEnumerator PopWindow(Transform transformToPop, float duration, Vector2 targetPosition)
     {
@@ -309,6 +331,9 @@ public class CharacterMovement : MonoBehaviour
 
             float newX = Mathf.MoveTowards(ropeTransform.position.x, targetX, growthSpeed * Time.deltaTime);
             ropeTransform.position = new Vector3(newX, ropeTransform.position.y, ropeTransform.position.z);
+
+           
+
             yield return null;
         }
     }
