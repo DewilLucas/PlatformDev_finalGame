@@ -300,7 +300,7 @@ public class CharacterMovement : MonoBehaviour
         float targetY = 18f;
         float startX = ropeTransform.position.x;
         float targetX = 65f;
-        float growthSpeed = 1f;
+        float growthSpeed = 5f;
 
         while (ropeTransform.localScale.y < targetY)
         {
@@ -309,9 +309,6 @@ public class CharacterMovement : MonoBehaviour
 
             float newX = Mathf.MoveTowards(ropeTransform.position.x, targetX, growthSpeed * Time.deltaTime);
             ropeTransform.position = new Vector3(newX, ropeTransform.position.y, ropeTransform.position.z);
-
-           
-
             yield return null;
         }
     }
