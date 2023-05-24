@@ -10,6 +10,7 @@ public class JumpCharacterScript : MonoBehaviour
     public Animator anim;
     public static int DubbleJump = 0;
     private int _MaxDubbleJump = 2;
+    public AudioSource audioSource;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -31,10 +32,12 @@ public class JumpCharacterScript : MonoBehaviour
                 {
                     if (DubbleJump == _MaxDubbleJump)
                     {
+                        audioSource.Play();
                         anim.SetBool("IsJumping", false);
                     }
                     else
                     {
+                        audioSource.Play();
                         anim.SetBool("IsJumping", true);
                     }
                     moveDirection.y = jumpSpeed;

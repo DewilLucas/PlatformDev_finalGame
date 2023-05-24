@@ -15,6 +15,8 @@ public class GrabScript : MonoBehaviour
     public static GrabScript grabScript;
 
     public GameObject PressF;
+    public AudioSource GrabSound;
+    public AudioSource ThrowSound;
     void Start()
     {
         grabScript = this;
@@ -26,6 +28,7 @@ public class GrabScript : MonoBehaviour
         {
             if (heldObject == null)
             {
+                GrabSound.Play();
                 // Try to pick up object
                 Collider[] hitColliders = Physics.OverlapSphere(transform.position, grabRange);
                 foreach (Collider hitCollider in hitColliders)
@@ -44,6 +47,7 @@ public class GrabScript : MonoBehaviour
             }
             else
             {
+                ThrowSound.Play();
                 isGrabbing = false;
                 // Throw the held object
                 heldObject.GetComponent<Rigidbody>().isKinematic = false;

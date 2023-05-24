@@ -15,6 +15,7 @@ public class CoinsController : MonoBehaviour
     public GameObject coinPrefab;
     public TMP_Text CoinsCounter;
     public TMP_Text CoinsCounterDeath;
+    public AudioSource audioSource;
     void Start()
     {
         coins = new List<Transform>();
@@ -55,6 +56,7 @@ public class CoinsController : MonoBehaviour
 
         foreach (var coin in coinsToRemove)
         {
+            audioSource.Play();
             coin.gameObject.SetActive(false);
             coins.Remove(coin);
         }

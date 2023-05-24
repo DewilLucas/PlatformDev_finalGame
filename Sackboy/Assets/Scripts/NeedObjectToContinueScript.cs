@@ -16,7 +16,7 @@ public class NeedObjectToContinueScript : MonoBehaviour
     private bool isClosing = false;
 
     public bool ShowTutorial = true;
-
+    public AudioSource DoorSound;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject == requiredObject)
@@ -42,6 +42,7 @@ public class NeedObjectToContinueScript : MonoBehaviour
     {
         if (isOpening)
         {
+            DoorSound.Play();
             ShowTutorial = false;
             float leftDoorTargetRotation = -pivotAngle;
             float rightDoorTargetRotation = pivotAngle;
@@ -57,6 +58,7 @@ public class NeedObjectToContinueScript : MonoBehaviour
                 leftDoor.transform.localEulerAngles.z);
             rightDoor.transform.localEulerAngles = new Vector3(rightDoor.transform.localEulerAngles.x,
                 rightDoorRotation, rightDoor.transform.localEulerAngles.z);
+
         }
         else if (isClosing)
         {

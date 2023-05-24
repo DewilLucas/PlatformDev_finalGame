@@ -17,6 +17,7 @@ public class MainGameScript : MonoBehaviour
 
     public GameObject PauzeMenu;
 
+    public AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,7 +59,8 @@ public class MainGameScript : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Restart the game + Go back to main menu
+        // Load a new instance of the current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 
@@ -70,7 +72,7 @@ public class MainGameScript : MonoBehaviour
         QuitButton.SetActive(false);
         ScoreText.SetActive(true);
         Lives.SetActive(true);
-
+        audioSource.volume = 0.1f;
     }
     public void QuitGame()
     {

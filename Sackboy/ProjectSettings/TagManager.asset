@@ -14,6 +14,9 @@ TagManager:
   - RopeTrigger1
   - RopeTrigger2
   - 3RDFloor
+  - LastFloor
+  - DeActivate
+  - Rocket
   layers:
   - Default
   - TransparentFX
