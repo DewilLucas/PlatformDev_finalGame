@@ -97,6 +97,7 @@ public class CharacterMovement : MonoBehaviour
 
     public AudioSource RocketSound;
     public static CharacterMovement characterMovement;
+    public AudioSource deadSound;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -213,7 +214,7 @@ public class CharacterMovement : MonoBehaviour
                             {
                                 Debug.Log("Congratulations! You won! To leave the game enter the rocket!");
                                 TutorialWindow.SetActive(true);
-                                StartCoroutine(PopWindow(TutorialWindow.transform, 2f, new Vector2(TutorialWindow.transform.position.x, 100)));
+                                StartCoroutine(PopWindow(TutorialWindow.transform, 0.5f, new Vector2(TutorialWindow.transform.position.x, 100)));
                                 isWindowActive = true;
                                 windowShowDuration = 2.0f;
                                 // Change the text of the window
@@ -228,7 +229,7 @@ public class CharacterMovement : MonoBehaviour
                                 Debug.Log("Congratulations! You won! To leave the game enter the rocket!");
                                 TutorialText.text = "Congratulations! You won! To leave the game enter the rocket!";
                                 TutorialWindow.SetActive(true);
-                                StartCoroutine(PopWindow(TutorialWindow.transform, 2f, new Vector2(TutorialWindow.transform.position.x, 100)));
+                                StartCoroutine(PopWindow(TutorialWindow.transform, 0.5f, new Vector2(TutorialWindow.transform.position.x, 100)));
                                 isWindowActive = true;
                                 windowShowDuration = 2.0f;
                                 txtEndGameFRocket.text = "F";
@@ -249,6 +250,7 @@ public class CharacterMovement : MonoBehaviour
                             {
                                 _lives = 0;
                                 _isDead = true;
+                                deadSound.Play();
                                 anim.SetBool("IsDead", true);
                                 deadAnimBlock++;
                             }
